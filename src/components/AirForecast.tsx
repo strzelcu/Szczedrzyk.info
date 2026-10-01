@@ -55,8 +55,8 @@ export default function AirHistory({refreshToken}: {refreshToken: string | null}
  }, [refreshToken]);
  const points = data?.points.filter(p => Date.parse(p.time) >= Date.now()-25*3600000) || [];
  const range = points.length ? points.map(p => date(p.time)).filter((d,i,a) => a.indexOf(d)===i).map(d=>d.split("-").reverse().join(".")).join(" – ") : "";
- const max = Math.max(160, ...points.flatMap(p => [p.pm25 ?? 0,p.pm10 ?? 0]));
- const ceiling = Math.ceil(max / 10) * 10;
+ const max = Math.max(10, ...points.flatMap(p => [p.pm25 ?? 0,p.pm10 ?? 0]));
+ const ceiling = Math.ceil(max * 1.1 / 10) * 10;
  const x = (i: number) => 48 + (Date.parse(points[i].time)-Date.parse(points[0].time))*680 / Math.max(1,Date.parse(points[points.length-1].time)-Date.parse(points[0].time));
  const y = (v: number) => 210 - v * 170 / ceiling;
  function path(field: "pm25" | "pm10") {
@@ -71,14 +71,12 @@ export default function AirHistory({refreshToken}: {refreshToken: string | null}
   {points.length ? <>
    <div className="chart-legend"><span className="legend-pm25">PM2,5</span><span className="legend-pm10">PM10</span><span>µg/m³ · {range}</span></div>
    <svg className="air-chart" viewBox="0 0 760 250" role="img" aria-labelledby="air-chart-title air-chart-desc">
-    <title id="air-chart-title">Historia godzinowych stężeń pyłów z czujnika Syngeos</title><desc id="air-chart-desc">Oś pozioma: godziny czasu polskiego. Oś pionowa: stężenie w mikrogramach na metr sześcienny. Linie odniesienia PM10: poziom informowania 100 i alarmowy 150 mikrogramów na metr sześcienny, dla średniej z 24 godzin. Nie są progami alarmowymi dla pojedynczej godziny. Dokładne wartości dostępne w tabeli pod wykresem.</desc>
+    <title id="air-chart-title">Historia godzinowych stężeń pyłów z czujnika Syngeos</title><desc id="air-chart-desc">Oś pozioma: godziny czasu polskiego. Oś pionowa: stężenie w mikrogramach na metr sześcienny. Dokładne wartości dostępne w tabeli pod wykresem.</desc>
     {[0,1,2,3,4].map(i => {const n=ceiling*i/4;return <g key={i}><line x1="48" x2="728" y1={y(n)} y2={y(n)} stroke="#d9e3ed"/><text x="40" y={y(n)+4} textAnchor="end">{value(n)}</text></g>;})}
-    {[{level:100,label:"PM10 · informowanie: 100 µg/m³ (24 h)",color:"#b36a16"},{level:150,label:"PM10 · alarm: 150 µg/m³ (24 h)",color:"#b4233c"}].map(t => <g key={t.level}><line x1="48" x2="728" y1={y(t.level)} y2={y(t.level)} stroke={t.color} strokeWidth="2" strokeDasharray="10 5"/><text x="54" y={y(t.level)-7} style={{fill:t.color,fontWeight:600}}>{t.label}</text></g>)}
     {points.map((p,i) => i%3===0 || i===points.length-1 ? <text key={p.time} x={x(i)} y="236" textAnchor="middle">{hour(p.time)}</text> : null)}
     <path d={path("pm25")} fill="none" stroke="#147d75" strokeWidth="3"/><path d={path("pm10")} fill="none" stroke="#a15b19" strokeWidth="3" strokeDasharray="7 4"/>
     {points.map((p,i) => <g key={p.time}>{p.pm25!==null&&<circle cx={x(i)} cy={y(p.pm25)} r="3" fill="#147d75"><title>{hour(p.time)} · PM2,5: {value(p.pm25)} µg/m³</title></circle>}{p.pm10!==null&&<circle cx={x(i)} cy={y(p.pm10)} r="3" fill="#a15b19"><title>{hour(p.time)} · PM10: {value(p.pm10)} µg/m³</title></circle>}</g>)}
    </svg>
-   <p className="card-note">Linie oznaczają poziomy GIOŚ dla PM10: informowania 100 µg/m³ i alarmowy 150 µg/m³. Dotyczą średniej z 24 godzin; na wykresie godzinowym służą jako odniesienie. Przekroczenie linii przez pojedynczą godzinę nie oznacza przekroczenia poziomu dobowego. Nie dotyczą PM2,5. <a className="source-link" href="https://powietrze.gios.gov.pl/pjp/content/alarm_levels" target="_blank" rel="noreferrer">Progi GIOŚ</a></p>
    <details className="forecast-values"><summary>Wartości godzinowe</summary><div className="hourly-scroll"><table className="hourly-table"><caption className="sr-only">Historyczne stężenia pyłów z Syngeos w µg/m³</caption><thead><tr><th scope="col">Godzina</th><th scope="col">PM2,5 (µg/m³)</th><th scope="col">PM10 (µg/m³)</th></tr></thead><tbody>{points.map(p=><tr key={p.time}><th scope="row">{date(p.time).slice(5).split("-").reverse().join(".")} {hour(p.time)}</th><td>{value(p.pm25)}</td><td>{value(p.pm10)}</td></tr>)}</tbody></table></div></details>
    <p className="section-meta">Pobrano: {data && new Intl.DateTimeFormat("pl-PL",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit",timeZone:"Europe/Warsaw"}).format(new Date(data.fetchedAt))}{loading?" · aktualizacja…":""}</p>
   </> : <p className="section-meta">{loading?"Pobieranie historii pomiarów…":"Historia pomiarów chwilowo niedostępna."}</p>}
