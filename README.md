@@ -1,4 +1,4 @@
-# Szczedrzyk.info
+# Szczedrzyk
 
 Lokalny dashboard Szczedrzyka: pogoda bieżąca, prognoza godzinowa i pięciodniowa,
 wschód i zachód słońca, czujnik Syngeos 10417, ostrzeżenia IMGW dla powiatu
