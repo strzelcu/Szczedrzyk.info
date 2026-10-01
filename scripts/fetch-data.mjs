@@ -18,7 +18,7 @@ async function response(fn) {
   return data;
 }
 const sources = {
-  weather: () => getWeather("https://strzelcu.github.io/Szczedrzyk.info/"),
+  weather: () => getWeather("https://strzelcu.github.io/szczedrzyk/"),
   air: () => response(air),
   water: () => response(water),
   warnings: () => response(warnings),

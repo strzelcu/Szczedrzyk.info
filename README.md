@@ -10,7 +10,7 @@ poniżej zapory i Staniszcze Wielkie.
 W Settings → Pages → Build and deployment ustaw Source na **GitHub Actions**.
 Workflow uruchamia się po zmianie `main`, ręcznie i co około 15 minut
 (minuty 7, 22, 37, 52). GitHub może opóźniać uruchomienia. Domyślny adres:
-https://strzelcu.github.io/Szczedrzyk.info/
+https://strzelcu.github.io/szczedrzyk/
 
 Dashboard jest statyczny. Actions pobiera dane i publikuje pliki JSON razem
 ze stroną. Przycisk odświeżania sprawdza ostatnią opublikowaną aktualizację;
