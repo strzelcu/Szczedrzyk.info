@@ -41,8 +41,8 @@ export default function WaterSection({result}:{result:{data:any;loading:boolean;
  }
  const main=h?.stations?.filter((s:any)=>s.name==="Staniszcze Wielkie")||[];
  const extra=h?.stations?.filter((s:any)=>s.name!=="Staniszcze Wielkie")||[];
- return <section className="card water-section" aria-labelledby="water-title"><div className="water-heading"><div><h2 id="water-title"><Waves size={21}/>Wody w okolicy</h2><p>Jezioro Turawskie · zlewnia Małej Panwi</p></div><a className="source-link" href="https://hydro.imgw.pl/" target="_blank" rel="noreferrer">Mapa hydrologiczna IMGW <ExternalLink size={12}/></a></div>
- <div className="water-grid" style={{gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,280px),1fr))"}}><article className="water-station"><h3>Jezioro Turawskie</h3><p className="card-note">Poziom jeziora, napełnienie, rezerwa oraz dopływ i odpływ zbiornika: brak dostępnego publicznego źródła API/JSON. Dane te nie są obecnie wyświetlane.</p></article>{main.map(station)}</div>
+ return <section className="card water-section" aria-labelledby="water-title"><div className="water-heading"><div><h2 id="water-title"><Waves size={21}/>Wody w okolicy</h2><p>Mała Panew · pomiary w zlewni Jeziora Turawskiego</p></div><a className="source-link" href="https://hydro.imgw.pl/" target="_blank" rel="noreferrer">Mapa hydrologiczna IMGW <ExternalLink size={12}/></a></div>
+ <div className="water-grid" style={{gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,280px),1fr))"}}>{main.map(station)}</div>
  {result.loading&&!h&&<p className="section-meta">Pobieranie pomiarów IMGW…</p>}
  {(result.error||h?.riverUnavailable)&&<p className="error-note" role="status">Nie udało się potwierdzić aktualnych danych IMGW.{h?" Widoczne są ostatnio pobrane odczyty.":""}</p>}
  {extra.length>0&&<details className="warning-entry"><summary>Dodatkowe pomiary w zlewni</summary><div className="water-grid" style={{gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,280px),1fr))"}}>{extra.map(station)}</div></details>}
