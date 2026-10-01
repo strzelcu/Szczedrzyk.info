@@ -70,3 +70,12 @@ main,.topbar-inner,main>*,.dashboard-grid>*,.current-weather-column>*,.water-gri
  .water-thresholds{gap:16px}
  .air-chart text{font-size:20px}
 }
+
+.environment-section{margin-top:24px;padding:24px;min-width:0}
+.environment-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:16px;margin-top:20px}
+.environment-metrics>div{min-width:0;display:flex;flex-direction:column;gap:5px}
+.environment-metrics span{font-size:.875rem;color:#60798e}
+.environment-metrics strong{font-size:1.6rem;overflow-wrap:anywhere}
+.environment-metrics small{font-size:.875rem;font-weight:400}
+@media(max-width:760px){.environment-section{padding:clamp(14px,4vw,22px);margin-top:18px}.environment-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:380px){.environment-metrics{grid-template-columns:minmax(0,1fr)}}

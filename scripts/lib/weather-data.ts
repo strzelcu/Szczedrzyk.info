@@ -1,5 +1,5 @@
 const freshFor=600000,retainFor=21600000;
-const params=new URLSearchParams({latitude:"50.704167",longitude:"18.152222",current:"temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,pressure_msl,wind_speed_10m",hourly:"temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,is_day",daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset",timeformat:"unixtime",timezone:"Europe/Warsaw",forecast_days:"5"});
+const params=new URLSearchParams({latitude:"50.704167",longitude:"18.152222",current:"temperature_2m,relative_humidity_2m,apparent_temperature,is_day,weather_code,pressure_msl,wind_speed_10m,wind_gusts_10m,wind_direction_10m,visibility,shortwave_radiation",hourly:"temperature_2m,precipitation_probability,precipitation,weather_code,wind_speed_10m,is_day,shortwave_radiation",daily:"weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset,sunshine_duration,uv_index_max",timeformat:"unixtime",timezone:"Europe/Warsaw",forecast_days:"5"});
 export const weatherUrl=`https://api.open-meteo.com/v1/forecast?${params}`;
 type Weather={current:any;daily:any;hourly:any;fetchedAt:string};
 let memory:Weather|null=null;
