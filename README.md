@@ -9,8 +9,8 @@ Staniszcze Wielkie.
 ## GitHub Pages
 
 In **Settings → Pages → Build and deployment**, set **Source** to **GitHub Actions**.
-The workflow runs on pushes to `main`, manually, and approximately every 15 minutes
-(at minutes 7, 22, 37, and 52 of each hour). GitHub may delay scheduled runs.
+The workflow runs on pushes to `main`, manually, and approximately every hour
+(at minute 7 of each hour). GitHub may delay scheduled runs.
 
 Default site URL: https://strzelcu.github.io/szczedrzyk/
 
