@@ -11,11 +11,13 @@ export async function GET(){try{
  // Public sensor linked by the municipality at https://ozimek.pl/.
  const data=await fetchJSON("https://api.syngeos.pl/api/public/data/device/10417");
  if(data.id!==10417||data.city!=="Szczedrzyk"||!Array.isArray(data.sensors))throw Error("Unexpected station");
+ const categoryRanges=(name:string)=>{const norm=data.sensors.find((s:any)=>s.name===name)?.norm;return grades.map((grade,i)=>{const range=norm?.[grade.replace("-","_")];return {label:labels[i],min:numeric(range?.gte),max:numeric(range?.lt)};});};
+ const scales={pm25:categoryRanges("pm2_5"),pm10:categoryRanges("pm10")};
  const pm10=latest(data.sensors.find((s:any)=>s.name==="pm10")),pm25=latest(data.sensors.find((s:any)=>s.name==="pm2_5"));
  if(!pm10&&!pm25)throw Error("No readings");
  const valid=[pm10,pm25].filter((r)=>r&&r.grade>=0&&Date.now()-Date.parse(r.time)<=21600000);
  const index=valid.length===2?Math.max(...valid.map(r=>r!.grade)):null;
  const indexTime=index===null?null:[pm10!.time,pm25!.time].sort()[0];
- return Response.json({station:`${data.city}, ul. ${data.address}`,index,label:index===null?"Brak aktualnej oceny":labels[index],indexTime,pm10,pm25},{headers});
+ return Response.json({station:`${data.city}, ul. ${data.address}`,index,label:index===null?"Brak aktualnej oceny":labels[index],indexTime,pm10,pm25,scales},{headers});
  }catch{return Response.json({error:"Pomiary ze Szczedrzyka chwilowo niedostępne"},{status:503,headers});}
 }
