@@ -154,3 +154,6 @@ footer p{font-size:.8125rem}
  footer p{font-size:.875rem;margin-top:10px}
  .footer-sources{gap:14px 20px}
 }
+
+.air-chart g>text{transform:translateX(-6px)}
+@media(max-width:640px){.air-chart g>text{font-size:24px}}
