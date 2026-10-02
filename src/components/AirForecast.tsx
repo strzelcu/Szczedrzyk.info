@@ -72,8 +72,8 @@ export default function AirHistory({refreshToken}: {refreshToken: string | null}
    <div className="chart-legend"><span className="legend-pm25">PM2,5</span><span className="legend-pm10">PM10</span><span>µg/m³ · {range}</span></div>
    <svg className="air-chart" viewBox="0 0 760 250" role="img" aria-labelledby="air-chart-title air-chart-desc">
     <title id="air-chart-title">Historia godzinowych stężeń pyłów z czujnika Syngeos</title><desc id="air-chart-desc">Oś pozioma: godziny czasu polskiego. Oś pionowa: stężenie w mikrogramach na metr sześcienny. Dokładne wartości dostępne w tabeli pod wykresem.</desc>
-    {[0,1,2,3,4].map(i => {const n=ceiling*i/4;return <g key={i}><line x1="48" x2="728" y1={y(n)} y2={y(n)} stroke="#d9e3ed"/><text x="40" y={y(n)+4} textAnchor="end">{value(n)}</text></g>;})}
-    {points.map((p,i) => i%3===0 || i===points.length-1 ? <text key={p.time} x={x(i)} y="236" textAnchor="middle">{hour(p.time)}</text> : null)}
+    {[0,1,2,3,4].map(i => {const n=ceiling*i/4;return <g key={i}><line x1="48" x2="728" y1={y(n)} y2={y(n)} stroke="#d9e3ed"/><text className={i%2===1?"chart-tick-secondary":undefined} x="46" y={y(n)+4} textAnchor="end">{value(n)}</text></g>;})}
+    {points.map((p,i) => i%3===0 || i===points.length-1 ? <text className={i%6!==0&&i!==points.length-1?"chart-tick-secondary":undefined} key={p.time} x={x(i)} y="236" textAnchor="middle">{hour(p.time)}</text> : null)}
     <path d={path("pm25")} fill="none" stroke="#147d75" strokeWidth="3"/><path d={path("pm10")} fill="none" stroke="#a15b19" strokeWidth="3" strokeDasharray="7 4"/>
     {points.map((p,i) => <g key={p.time}>{p.pm25!==null&&<circle cx={x(i)} cy={y(p.pm25)} r="3" fill="#147d75"><title>{hour(p.time)} · PM2,5: {value(p.pm25)} µg/m³</title></circle>}{p.pm10!==null&&<circle cx={x(i)} cy={y(p.pm10)} r="3" fill="#a15b19"><title>{hour(p.time)} · PM10: {value(p.pm10)} µg/m³</title></circle>}</g>)}
    </svg>
