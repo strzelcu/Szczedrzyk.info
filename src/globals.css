@@ -110,3 +110,16 @@ main,.topbar-inner,main>*,.dashboard-grid>*,.current-weather-column>*,.water-gri
  .air-card .air-status,.air-card .aq-scale,.air-card .aq-scale-labels,.air-card .pollutants,.air-card .aq-legend{margin-left:auto;margin-right:auto}
  .air-card .air-status{text-align:center}
 }
+
+@media(min-width:1101px){
+ .weather-card .weather-metrics{grid-template-columns:repeat(6,minmax(0,1fr));gap:20px}
+ .weather-card .weather-metrics>div{border-top:0}
+ .air-overview{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;align-items:start}
+ .air-readings{min-width:0}
+ .air-card .station-label{justify-content:flex-start;margin-top:0}
+ .air-card .air-status{text-align:left}
+ .air-card .air-status,.air-card .aq-scale,.air-card .aq-scale-labels,.air-card .pollutants,.air-card .aq-legend{max-width:none;margin-left:0;margin-right:0}
+ .air-card .aq-legend{margin-top:0;margin-bottom:0}
+ .air-card .pollutants{margin-top:26px}
+ .air-card .pollutants strong{font-size:2rem}
+}
