@@ -123,3 +123,8 @@ main,.topbar-inner,main>*,.dashboard-grid>*,.current-weather-column>*,.water-gri
  .air-card .pollutants{margin-top:26px}
  .air-card .pollutants strong{font-size:2rem}
 }
+
+@media(min-width:1101px){
+ .weather-details{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:20px;border-top:1px solid #ffffff24;padding-top:19px}
+ .weather-card .weather-details .weather-metrics{display:contents}
+}
