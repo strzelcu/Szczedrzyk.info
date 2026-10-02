@@ -36,7 +36,7 @@ main,.topbar-inner,main>*,.dashboard-grid>*,.current-weather-column>*,.water-gri
 @media(min-width:761px) and (max-width:1000px){
  .dashboard-grid{grid-template-columns:minmax(0,1fr)}
  .water-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
- .water-station:first-child{grid-column:1/-1}
+
 }
 @media(max-width:760px){
  .dashboard-grid,.water-grid{grid-template-columns:minmax(0,1fr)}
@@ -93,3 +93,7 @@ main,.topbar-inner,main>*,.dashboard-grid>*,.current-weather-column>*,.water-gri
 .aq-legend-heading{font-weight:600;color:#26465f}
 .aq-legend-critical{background:#fff2f2;font-weight:600}
 .aq-legend>.aq-legend-note{margin-top:9px;font-size:.7rem;font-weight:400;line-height:1.5}
+
+.water-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr))}
+@media(min-width:641px) and (max-width:1100px){.water-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr}.water-station{height:100%;box-sizing:border-box}}
+@media(max-width:640px){.water-grid{grid-template-columns:minmax(0,1fr)}}

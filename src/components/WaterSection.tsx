@@ -43,7 +43,7 @@ export default function WaterSection({result}:{result:{data:any;loading:boolean;
  const order=["150180230","150180190","150180100","150180020"];
  const main=[...(h?.stations||[])].sort((a:any,b:any)=>order.indexOf(a.id)-order.indexOf(b.id));
  return <section className="card water-section" aria-labelledby="water-title"><div className="water-heading"><div><h2 id="water-title"><Waves size={21}/>Wody w okolicy</h2><p>Mała Panew · pomiary w zlewni Jeziora Turawskiego</p></div><a className="source-link" href="https://hydro.imgw.pl/" target="_blank" rel="noreferrer">Mapa hydrologiczna IMGW <ExternalLink size={12}/></a></div>
- <div className="water-grid" style={{gridTemplateColumns:"repeat(auto-fit,minmax(min(100%,280px),1fr))"}}>{main.map(station)}</div>
+ <div className="water-grid">{main.map(station)}</div>
  {result.loading&&!h&&<p className="section-meta">Pobieranie pomiarów IMGW…</p>}
  {(result.error||h?.riverUnavailable)&&<p className="error-note" role="status">Nie udało się potwierdzić aktualnych danych IMGW.{h?" Widoczne są ostatnio pobrane odczyty.":""}</p>}
  <p className="section-meta">Trend pochodzi z pomiarów zapisanych na tym urządzeniu. Porównuje odczyty oddalone o 23–25 godzin; wymaga historii z poprzedniej doby. Nie jest prognozą.</p>
